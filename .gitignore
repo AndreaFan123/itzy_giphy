@@ -1,0 +1,11 @@
+# 環境變數文件
+.env
+
+# Python 虛擬環境目錄
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
