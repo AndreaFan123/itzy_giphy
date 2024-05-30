@@ -29,7 +29,7 @@ def callback():
         tk = json_data['events'][0]['replyToken']            # 取得回傳訊息的 Token
         msg = json_data['events'][0]['message']['text']
         
-        if msg == 'yeji' or msg == '椰咚' or msg == '禮志':
+        if  msg == '椰咚' or msg == '禮志':
             # 如果有圖片網址，回傳圖片
             img_url = 'https://res.cloudinary.com/dbrf4i0rb/image/upload/v1717041883/Screenshot_2024-05-30_at_08.33.37_zi7k7l.png'
             img_message = ImageSendMessage(original_content_url=img_url, preview_image_url=img_url)
