@@ -4,7 +4,7 @@ from flask import Flask, request
 # 載入 LINE Message API 相關函式庫
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
 from dotenv import load_dotenv
 import json
 import os
@@ -28,13 +28,14 @@ def callback():
         handler.handle(body, signature)                      # 綁定訊息回傳的相關資訊
         tk = json_data['events'][0]['replyToken']            # 取得回傳訊息的 Token
         msg = json_data['events'][0]['message']['text']
+        
         if msg == '皮卡丘':
             # 如果有圖片網址，回傳圖片
-            img_url = 'https://upload.wikimedia.org/wikipedia/en/a/a6/Pok%C3%A9mon_Pikachu_art.png'
+            img_url = 'https://res.cloudinary.com/dbrf4i0rb/image/upload/v1717030120/Screenshot_2024-05-30_at_08.33.37_gwloim.png'
             img_message = ImageSendMessage(original_content_url=img_url, preview_image_url=img_url)
             line_bot_api.reply_message(tk,img_message)
         else:
-            # 如果沒有 msg，回傳文字
+            # 如果 msg 不符合，回傳文字
             text_message = TextSendMessage(text='找不到相關圖片')
             line_bot_api.reply_message(tk,text_message)
     except:
