@@ -5,14 +5,12 @@ from linebot.v3.webhooks import TextSendMessage, ImageSendMessage
 import os
 import json
 
-
-
 load_dotenv()
 
 app = Flask(__name__)
 
-@app.route('/', methods=['POST'])
-def linebot():
+@app.route('/callback', methods=['POST'])
+def callback():
     body = request.get_data(as_text=True)
     try:
         json_data = json.loads(body)
