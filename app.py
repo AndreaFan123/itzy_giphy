@@ -1,8 +1,7 @@
 from flask import Flask, request
 from dotenv import load_dotenv
 from linebot.v3 import LineBotApi, WebhookHandler
-from linebot.exceptions import InvalidSignatureError
-from linebot.models import TextSendMessage, ImageSendMessage
+from linebot.v3.webhooks import TextSendMessage, ImageSendMessage
 import os
 import json
 
