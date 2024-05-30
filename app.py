@@ -5,7 +5,13 @@ from flask import Flask, request
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from dotenv import load_dotenv
 import json
+import os
+
+
+load_dotenv()
+
 app = Flask(__name__)
 
 
@@ -14,8 +20,8 @@ def linebot():
     body = request.get_data(as_text=True)                    # 取得收到的訊息內容
     try:
         json_data = json.loads(body)                         # json 格式化訊息內容
-        access_token = '你的 access token'
-        secret = '你的 channel secret'
+        access_token = os.getenv("CHANNEL_ACCESS_TOKEN")
+        secret = os.getenv("CHANNEL_SECRET")
         line_bot_api = LineBotApi(access_token)              # 確認 token 是否正確
         handler = WebhookHandler(secret)                     # 確認 secret 是否正確
         signature = request.headers['X-Line-Signature']      # 加入回傳的 headers
