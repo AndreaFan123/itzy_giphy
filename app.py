@@ -53,15 +53,6 @@ def handle_message(event):
     received_text = event.message.text
     
     if received_text == '來張 gif':
-        with ApiClient(configuration) as api_client:
-            line_bot_api = MessagingApi(api_client)
-            line_bot_api.reply_message_with_http_info(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[TextMessage(text=reply_text)]
-                )
-            )
-    else:
         image_urls = get_gif()
         random_url = random.choice(image_urls)
         with ApiClient(configuration) as api_client:
@@ -72,7 +63,7 @@ def handle_message(event):
                     messages=[TextMessage(text=f'隨機 gif 來囉：{random_url}')]
                 )
             )
-    if received_text == 'itzy 想對我說...':
+    elif received_text == 'itzy 想對我說...':
         random_lyrics = get_random_text()
         with ApiClient(configuration) as api_client:
             line_bot_api = MessagingApi(api_client)
@@ -133,7 +124,7 @@ def handle_message(event):
                 )
             )
     else:
-        reply_text = '找不到相關圖片或 gif'
+        reply_text = '找不到相關圖片或 gif🥲'
         with ApiClient(configuration) as api_client:
             line_bot_api = MessagingApi(api_client)
             line_bot_api.reply_message_with_http_info(
