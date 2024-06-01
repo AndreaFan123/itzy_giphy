@@ -37,7 +37,7 @@ def get_image(msg, token):
             img_url = 'https://res.cloudinary.com/dbrf4i0rb/image/upload/v1717049784/artworks-wO5B7Svz2sILlOYm-n5A8fA-t500x500_zgrrpi.jpg'
             img_message = ImageSendMessage(original_content_url=img_url, preview_image_url=img_url)
             line_bot_api.reply_message(token,img_message)
-        elif msg == '抽支籤，看看 itzy 有什麼話對你說':
+        elif msg == 'itzy 想對今天的你說...':
             result = get_random_text()
             text_message = TextSendMessage(text=result)
             line_bot_api.reply_message(token,text_message)
