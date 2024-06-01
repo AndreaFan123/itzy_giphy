@@ -17,6 +17,7 @@ from linebot.v3.webhooks import (
     MessageEvent,
     TextMessageContent
 )
+from get_random_text import get_random_text
 from get_gif import get_gif
 from dotenv import load_dotenv
 import os
@@ -54,17 +55,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
     received_text = event.message.text
-    if received_text != 'itzy':
-        reply_text = '找不到相關GIF'
-        with ApiClient(configuration) as api_client:
-            line_bot_api = MessagingApi(api_client)
-            line_bot_api.reply_message_with_http_info(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[TextMessage(text=reply_text)]
-                )
-            )
-    else:
+    if received_text == '來張 gif':
         image_urls = get_gif()
         random_url = random.choice(image_urls)
         with ApiClient(configuration) as api_client:
@@ -72,7 +63,27 @@ def handle_message(event):
             line_bot_api.reply_message_with_http_info(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[TextMessage(text=f'隨機 gif 來囉：{random_url}')]
+                    messages=[TextMessage(text=random_url)]
+                )
+            )
+    elif received_text == 'itzy 想對我說...':
+        random_lyrics = get_random_text()
+        with ApiClient(configuration) as api_client:
+            line_bot_api = MessagingApi(api_client)
+            line_bot_api.reply_message_with_http_info(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text=random_lyrics)]
+                )
+            )
+    else:
+        replied_text = '找不到相關圖片或 gif🥲'
+        with ApiClient(configuration) as api_client:
+            line_bot_api = MessagingApi(api_client)
+            line_bot_api.reply_message_with_http_info(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text=f'隨機 gif 來囉：{replied_text}')]
                 )
             )
 
