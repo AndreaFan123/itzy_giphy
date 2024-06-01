@@ -30,7 +30,6 @@ def get_gif():
             print('Error: Service Unavailable')
         elif res.status_code == 200:
             data = res.json()
-            # images = [{'images': image['images']} for image in data['data']]
             image_url = [image['images']['original']['url'] for image in data['data']]
             return image_url
 
