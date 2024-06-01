@@ -63,7 +63,7 @@ lyrics = {
 
 def get_random_text():
     random_text = random.choice(list(lyrics.values()))
-    return f"{random_text}\n\n\n翻譯來源：jinjin (https://juinjuin.com/)"
+    return f"{random_text}\n\n\n翻譯來源：juinjuin (https://juinjuin.com/)"
 
 
 get_random_text()
