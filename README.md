@@ -17,13 +17,18 @@ Target deadline: 15/06/2024
 - [x] Greeting message.
 - [x] Optimize the image reply function and allow user to type different member's name.
 - [x] Random cheer up message when clicking image.
+- [x] Random gif link
 - [ ] Random select member.
 
 
 
 ### Showcase
-- Click banner below will trigger a automatic text - 請鼓勵我 (Please cheer me up)
-- Get a auto reply from bot
+- Click first banner will show random cheer up message
+- Click second banner will show random gif.
+- Click third banner will redirect user to feedback form.
 - Type each member's name will get their images and their greeting.
    
-![image](https://github.com/AndreaFan123/itzy_midzy_fly/assets/84858081/118f7ac7-6589-41ba-8fa1-15757b018ba5)
+https://github.com/AndreaFan123/itzy_midzy_fly/assets/84858081/40c84d77-af48-4258-92bc-e7c8bdc60173
+
+
+
