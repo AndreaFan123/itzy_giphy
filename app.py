@@ -11,7 +11,8 @@ from linebot.v3.messaging import (
     ApiClient,
     MessagingApi,
     ReplyMessageRequest,
-    TextMessage
+    TextMessage,
+    ImageMessage
 )
 from linebot.v3.webhooks import (
     MessageEvent,
@@ -63,7 +64,7 @@ def handle_message(event):
             line_bot_api.reply_message_with_http_info(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[TextMessage(text=random_url)]
+                    messages=[TextMessage(text=f"隨機 gif 來囉：{random_url}")]
                 )
             )
     elif received_text == 'itzy 想對我說...':
@@ -76,6 +77,16 @@ def handle_message(event):
                     messages=[TextMessage(text=random_lyrics)]
                 )
             )
+    elif received_text == '椰咚' or received_text == '禮志' or received_text == 'yeji':
+        img_url = 'https://res.cloudinary.com/dbrf4i0rb/image/upload/v1717041883/Screenshot_2024-05-30_at_08.33.37_zi7k7l.png'
+        with ApiClient(configuration) as api_client:
+            line_bot_api = MessagingApi(api_client)
+            line_bot_api.reply_message_with_http_info(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[ImageMessage(original_content_url=img_url, preview_image_url=img_url)]
+                )
+            )
     else:
         replied_text = '找不到相關圖片或 gif🥲'
         with ApiClient(configuration) as api_client:
@@ -83,7 +94,7 @@ def handle_message(event):
             line_bot_api.reply_message_with_http_info(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[TextMessage(text=f'隨機 gif 來囉：{replied_text}')]
+                    messages=[TextMessage(text=replied_text)]
                 )
             )
 
