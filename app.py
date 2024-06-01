@@ -1,6 +1,4 @@
 from flask import Flask, request
-
-# 載入 LINE Message API 相關函式庫
 from linebot import LineBotApi, WebhookHandler
 from dotenv import load_dotenv
 from get_img import get_image
