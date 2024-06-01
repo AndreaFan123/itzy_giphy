@@ -12,17 +12,14 @@ This is a project that aims to learning how to integrate Line bot and promote my
 Below are my initial plan for building this small project.
 
 #### Phase 1
-Target deadline: 02/06/2024
+Target deadline: 15/06/2024
 
 - [x] Greeting message.
 - [x] Optimize the image reply function and allow user to type different member's name.
-- [x] Setting image with cheer up message.
-  - [ ] Random image reply for cheer up message.
+- [x] Random cheer up message when clicking image.
+- [ ] Random select member.
 
-### Phase 2 
-Target deadling: 15/06/2024
-- [ ] Categoris for different actions, including link to external website.
-- [ ] Extra functionalities provided by Line.
+
 
 ### Showcase
 - Click banner below will trigger a automatic text - 請鼓勵我 (Please cheer me up)
