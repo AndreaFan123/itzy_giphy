@@ -1,31 +1,48 @@
-from flask import Flask, request
-from linebot import LineBotApi, WebhookHandler
+from flask import Flask, request, abort
+
+from linebot.v3 import (
+    WebhookHandler
+)
+from linebot.v3.exceptions import (
+    InvalidSignatureError
+)
+from linebot.v3.webhooks import (
+    MessageEvent,
+    TextMessageContent,
+)
+from get_text_or_image import get_text_or_image
 from dotenv import load_dotenv
-from get_img import get_image
-import json
 import os
+
 
 
 load_dotenv()
 
+channel_secret = os.getenv("CHANNEL_SECRET")
+handler = WebhookHandler(channel_secret)
+
 app = Flask(__name__)
 
-
-@app.route("/callback", methods=['POST'])
 def callback():
-    body = request.get_data(as_text=True)                    # 取得收到的訊息內容
+    signature = request.headers['X-Line-Signature']
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+
     try:
-        json_data = json.loads(body)                         # json 格式化訊息內容
-        secret = os.getenv("CHANNEL_SECRET")
-        handler = WebhookHandler(secret)                     # 確認 secret 是否正確
-        signature = request.headers['X-Line-Signature']      # 加入回傳的 headers
-        handler.handle(body, signature)                      # 綁定訊息回傳的相關資訊
-        tk = json_data['events'][0]['replyToken']            # 取得回傳訊息的 Token
-        msg = json_data['events'][0]['message']['text']
-        get_image(msg, tk)
-    except:
-        print(body)             # 如果發生錯誤，印出收到的內容
-    return 'OK'                 # 驗證 Webhook 使用，不能省略
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        app.logger.info("Invalid signature. Please check your channel access token/channel secret.")
+        abort(400)
+
+    return 'OK'
+
+@handler.add(MessageEvent, message=TextMessageContent)
+def handle_message(event):
+    received_text = event.message.text
+    received_token = event.reply_token
+    get_text_or_image(received_text, received_token)
+
+
 if __name__ == "__main__":
     app.run()
 
