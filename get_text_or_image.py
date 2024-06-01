@@ -16,12 +16,14 @@ import random
 import os
 from dotenv import load_dotenv
 
+load_dotenv()
+
 access_token = os.getenv("CHANNEL_ACCESS_TOKEN")
 channel_secret = os.getenv("CHANNEL_SECRET")
 configuration = Configuration(access_token=access_token)
 handler = WebhookHandler(channel_secret)  
 
-load_dotenv()
+
 
 def reply_msg(reply_token, message):
     with ApiClient(configuration) as api_client:
