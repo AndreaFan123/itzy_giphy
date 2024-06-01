@@ -6,7 +6,7 @@ load_dotenv()
 
 GIPHY_API_KEY = os.getenv('GIPHY_API_KEY') 
 SEARCH_QUERY = 'itzy'
-LIMIT=5
+LIMIT=50
 
 GIPHY_API_URL = f'https://api.giphy.com/v1/gifs/search?api_key={GIPHY_API_KEY}&q={SEARCH_QUERY}&limit={LIMIT}&offset=0&rating=g&lang=en&bundle=messaging_non_clips'
 
